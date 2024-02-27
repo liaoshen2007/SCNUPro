@@ -32,4 +32,10 @@
     {
         public Unit Unit;
     }
+
+    public struct TestEventStruct
+    {
+        public int TestValue;
+    }
+    
 }

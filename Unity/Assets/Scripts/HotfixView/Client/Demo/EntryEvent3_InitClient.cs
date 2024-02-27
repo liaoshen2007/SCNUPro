@@ -22,6 +22,10 @@ namespace ET.Client
             root.SceneType = sceneType;
             
             await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
+            
+            //有分同步和异步发布两种方式，同步方式的话，是不会等待两秒，而是直接执行下一步。
+            await EventSystem.Instance.PublishAsync(root, new TestEventStruct() { TestValue = 10});
+            Log.Debug("After TestEventStuct");
         }
     }
 }
