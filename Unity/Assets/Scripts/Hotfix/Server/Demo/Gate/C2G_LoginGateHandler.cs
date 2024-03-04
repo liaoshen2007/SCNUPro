@@ -27,6 +27,8 @@ namespace ET.Server
                 playerComponent.Add(player);
                 PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();
                 playerSessionComponent.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.GateSession);
+                
+                //通知Loaction定位服务器
                 await playerSessionComponent.AddLocation(LocationType.GateSession);
 			
                 player.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.UnOrderedMessage);
