@@ -22,6 +22,8 @@ namespace ET.Server
 
             unit.AddComponent<MoveComponent>();
             unit.AddComponent<PathfindingComponent, string>(scene.Name);
+            
+            //位置可以后期读表！
             unit.Position = new float3(-10, 0, -10);
 
             unit.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.OrderedMessage);
@@ -38,7 +40,7 @@ namespace ET.Server
             // 加入aoi
             unit.AddComponent<AOIEntity, int, float3>(9 * 1000, unit.Position);
 
-            // 解锁location，可以接收发给Unit的消息
+            // 解锁location，可以接收发给Unit的消息，之前传送的过程中是无法接收客户端发送的消息
             await scene.Root().GetComponent<LocationProxyComponent>().UnLock(LocationType.Unit, unit.Id, request.OldActorId, unit.GetActorId());
         }
     }

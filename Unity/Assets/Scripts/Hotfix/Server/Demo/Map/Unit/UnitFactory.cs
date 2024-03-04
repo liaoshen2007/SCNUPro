@@ -12,6 +12,7 @@ namespace ET.Server
             {
                 case UnitType.Player:
                 {
+                    //这个id是跟Player.Id保持一致的，要记住！
                     Unit unit = unitComponent.AddChildWithId<Unit, int>(id, 1001);
                     unit.AddComponent<MoveComponent>();
                     unit.Position = new float3(-10, 0, -10);

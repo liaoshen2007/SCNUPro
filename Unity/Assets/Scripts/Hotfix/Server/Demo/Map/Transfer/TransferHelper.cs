@@ -32,6 +32,7 @@ namespace ET.Server
             }
             unit.Dispose();
             
+            //定位服务器定位Unit所在的Actor位置
             await root.GetComponent<LocationProxyComponent>().Lock(LocationType.Unit, unitId, request.OldActorId);
             await root.GetComponent<MessageSender>().Call(sceneInstanceId, request);
         }
