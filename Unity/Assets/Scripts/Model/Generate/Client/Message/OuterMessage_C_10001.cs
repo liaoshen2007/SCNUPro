@@ -1034,6 +1034,522 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(A2C_LoginAccount))]
+	[Message(OuterMessage.C2A_LoginAccount)]
+	[MemoryPackable]
+	public partial class C2A_LoginAccount: MessageObject, IRequest
+	{
+		public static C2A_LoginAccount Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2A_LoginAccount), isFromPool) as C2A_LoginAccount; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string AccountName { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string Password { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.AccountName = default;
+			this.Password = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_LoginAccount)]
+	[MemoryPackable]
+	public partial class A2C_LoginAccount: MessageObject, IResponse
+	{
+		public static A2C_LoginAccount Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_LoginAccount), isFromPool) as A2C_LoginAccount; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(92)]
+		public string Token { get; set; }
+
+		[MemoryPackOrder(93)]
+		public long AccountId { get; set; }
+
+		[MemoryPackOrder(94)]
+		public string Address { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.Token = default;
+			this.AccountId = default;
+			this.Address = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(A2C_RegisterAccount))]
+	[Message(OuterMessage.C2A_RegisterAccount)]
+	[MemoryPackable]
+	public partial class C2A_RegisterAccount: MessageObject, ISessionRequest
+	{
+		public static C2A_RegisterAccount Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2A_RegisterAccount), isFromPool) as C2A_RegisterAccount; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string AccountName { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string Password { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string PhoneNum { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.AccountName = default;
+			this.Password = default;
+			this.PhoneNum = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_RegisterAccount)]
+	[MemoryPackable]
+	public partial class A2C_RegisterAccount: MessageObject, ISessionResponse
+	{
+		public static A2C_RegisterAccount Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_RegisterAccount), isFromPool) as A2C_RegisterAccount; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_Disconnect)]
+	[MemoryPackable]
+	public partial class A2C_Disconnect: MessageObject, IMessage
+	{
+		public static A2C_Disconnect Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_Disconnect), isFromPool) as A2C_Disconnect; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Error { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Error = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.ServerInfoProto)]
+	[MemoryPackable]
+	public partial class ServerInfoProto: MessageObject
+	{
+		public static ServerInfoProto Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(ServerInfoProto), isFromPool) as ServerInfoProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Status { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string ServerName { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Status = default;
+			this.ServerName = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(A2C_GetServerInfos))]
+	[Message(OuterMessage.C2A_GetServerInfos)]
+	[MemoryPackable]
+	public partial class C2A_GetServerInfos: MessageObject, ISessionRequest
+	{
+		public static C2A_GetServerInfos Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2A_GetServerInfos), isFromPool) as C2A_GetServerInfos; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string Token { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long AccountId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Token = default;
+			this.AccountId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_GetServerInfos)]
+	[MemoryPackable]
+	public partial class A2C_GetServerInfos: MessageObject, ISessionResponse
+	{
+		public static A2C_GetServerInfos Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_GetServerInfos), isFromPool) as A2C_GetServerInfos; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public List<ServerInfoProto> ServerInfoList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.ServerInfoList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.RoleInfoProto)]
+	[MemoryPackable]
+	public partial class RoleInfoProto: MessageObject
+	{
+		public static RoleInfoProto Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(RoleInfoProto), isFromPool) as RoleInfoProto; 
+		}
+
+		[MemoryPackOrder(0)]
+		public long Id { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int State { get; set; }
+
+		[MemoryPackOrder(3)]
+		public long AccountId { get; set; }
+
+		[MemoryPackOrder(4)]
+		public long LastLoginTime { get; set; }
+
+		[MemoryPackOrder(5)]
+		public long CreatTime { get; set; }
+
+		[MemoryPackOrder(6)]
+		public int ServerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.Id = default;
+			this.Name = default;
+			this.State = default;
+			this.AccountId = default;
+			this.LastLoginTime = default;
+			this.CreatTime = default;
+			this.ServerId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(A2C_CreatRole))]
+	[Message(OuterMessage.C2A_CreatRole)]
+	[MemoryPackable]
+	public partial class C2A_CreatRole: MessageObject, ISessionRequest
+	{
+		public static C2A_CreatRole Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2A_CreatRole), isFromPool) as C2A_CreatRole; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string Token { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long AccountId { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Name { get; set; }
+
+		[MemoryPackOrder(3)]
+		public int ServerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Token = default;
+			this.AccountId = default;
+			this.Name = default;
+			this.ServerId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_CreatRole)]
+	[MemoryPackable]
+	public partial class A2C_CreatRole: MessageObject, ISessionResponse
+	{
+		public static A2C_CreatRole Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_CreatRole), isFromPool) as A2C_CreatRole; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public RoleInfoProto RoleInfo { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.RoleInfo = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(A2C_GetRoles))]
+	[Message(OuterMessage.C2A_GetRoles)]
+	[MemoryPackable]
+	public partial class C2A_GetRoles: MessageObject, ISessionRequest
+	{
+		public static C2A_GetRoles Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2A_GetRoles), isFromPool) as C2A_GetRoles; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string Token { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long AccountId { get; set; }
+
+		[MemoryPackOrder(2)]
+		public int ServerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Token = default;
+			this.AccountId = default;
+			this.ServerId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_GetRoles)]
+	[MemoryPackable]
+	public partial class A2C_GetRoles: MessageObject, ISessionResponse
+	{
+		public static A2C_GetRoles Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_GetRoles), isFromPool) as A2C_GetRoles; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public List<RoleInfoProto> RoleInfo { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.RoleInfo.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[ResponseType(nameof(A2C_DeleteRole))]
+	[Message(OuterMessage.C2A_DeleteRole)]
+	[MemoryPackable]
+	public partial class C2A_DeleteRole: MessageObject, ISessionRequest
+	{
+		public static C2A_DeleteRole Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(C2A_DeleteRole), isFromPool) as C2A_DeleteRole; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public string Token { get; set; }
+
+		[MemoryPackOrder(1)]
+		public long AccountId { get; set; }
+
+		[MemoryPackOrder(2)]
+		public long RoleInfoId { get; set; }
+
+		[MemoryPackOrder(3)]
+		public int ServerId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Token = default;
+			this.AccountId = default;
+			this.RoleInfoId = default;
+			this.ServerId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(OuterMessage.A2C_DeleteRole)]
+	[MemoryPackable]
+	public partial class A2C_DeleteRole: MessageObject, ISessionResponse
+	{
+		public static A2C_DeleteRole Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(A2C_DeleteRole), isFromPool) as A2C_DeleteRole; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long DeleteRoleInfoId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.DeleteRoleInfoId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class OuterMessage
 	{
 		 public const ushort HttpGetRouterResponse = 10002;
@@ -1072,5 +1588,20 @@ namespace ET
 		 public const ushort G2C_Benchmark = 10035;
 		 public const ushort C2R_LoginAccount = 10036;
 		 public const ushort R2C_LoginAccount = 10037;
+		 public const ushort C2A_LoginAccount = 10038;
+		 public const ushort A2C_LoginAccount = 10039;
+		 public const ushort C2A_RegisterAccount = 10040;
+		 public const ushort A2C_RegisterAccount = 10041;
+		 public const ushort A2C_Disconnect = 10042;
+		 public const ushort ServerInfoProto = 10043;
+		 public const ushort C2A_GetServerInfos = 10044;
+		 public const ushort A2C_GetServerInfos = 10045;
+		 public const ushort RoleInfoProto = 10046;
+		 public const ushort C2A_CreatRole = 10047;
+		 public const ushort A2C_CreatRole = 10048;
+		 public const ushort C2A_GetRoles = 10049;
+		 public const ushort A2C_GetRoles = 10050;
+		 public const ushort C2A_DeleteRole = 10051;
+		 public const ushort A2C_DeleteRole = 10052;
 	}
 }

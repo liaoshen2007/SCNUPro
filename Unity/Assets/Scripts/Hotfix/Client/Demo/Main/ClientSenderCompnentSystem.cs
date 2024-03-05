@@ -42,6 +42,18 @@ namespace ET.Client
             return response;
         }
 
+        public static async ETTask<NetClient2Main_LoginAccount> LoginAccountAsync(this ClientSenderCompnent self, string account, string password,string address)
+        {
+            self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
+            self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
+            NetClient2Main_LoginAccount response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId,new Main2NetClient_LoginAccount()
+            {
+                OwnerFiberId = self.Fiber().Id, Account = account, Password = password,Address = address
+            }) as NetClient2Main_LoginAccount;
+            return response;
+
+        }
+
         public static void Send(this ClientSenderCompnent self, IMessage message)
         {
             A2NetClient_Message a2NetClientMessage = A2NetClient_Message.Create();

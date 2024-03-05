@@ -20,3 +20,23 @@ message NetClient2Main_Login // IResponse
 	
 	int64 PlayerId = 4;
 }
+
+//ResponseType NetClient2Main_LoginAccount
+message Main2NetClient_LoginAccount // IRequest
+{
+	int32 RpcId = 1;
+	int32 OwnerFiberId = 2;
+	string Account = 3;
+	string Password = 4;
+	string Address = 5;
+}
+
+message NetClient2Main_LoginAccount // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	string Token = 5;
+	int64 AccountId = 6;
+	string Address = 7;
+}

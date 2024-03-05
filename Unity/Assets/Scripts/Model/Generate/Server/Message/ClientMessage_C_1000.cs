@@ -73,9 +73,92 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(NetClient2Main_LoginAccount))]
+	[Message(ClientMessage.Main2NetClient_LoginAccount)]
+	[MemoryPackable]
+	public partial class Main2NetClient_LoginAccount: MessageObject, IRequest
+	{
+		public static Main2NetClient_LoginAccount Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(Main2NetClient_LoginAccount), isFromPool) as Main2NetClient_LoginAccount; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int OwnerFiberId { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Account { get; set; }
+
+		[MemoryPackOrder(3)]
+		public string Password { get; set; }
+
+		[MemoryPackOrder(4)]
+		public string Address { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.OwnerFiberId = default;
+			this.Account = default;
+			this.Password = default;
+			this.Address = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(ClientMessage.NetClient2Main_LoginAccount)]
+	[MemoryPackable]
+	public partial class NetClient2Main_LoginAccount: MessageObject, IResponse
+	{
+		public static NetClient2Main_LoginAccount Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(NetClient2Main_LoginAccount), isFromPool) as NetClient2Main_LoginAccount; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(4)]
+		public string Token { get; set; }
+
+		[MemoryPackOrder(5)]
+		public long AccountId { get; set; }
+
+		[MemoryPackOrder(6)]
+		public string Address { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.Token = default;
+			this.AccountId = default;
+			this.Address = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class ClientMessage
 	{
 		 public const ushort Main2NetClient_Login = 1001;
 		 public const ushort NetClient2Main_Login = 1002;
+		 public const ushort Main2NetClient_LoginAccount = 1003;
+		 public const ushort NetClient2Main_LoginAccount = 1004;
 	}
 }

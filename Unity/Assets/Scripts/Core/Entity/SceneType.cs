@@ -24,6 +24,12 @@ namespace ET
 		LockStepServer = 1 << 17,
 		RoomRoot = 1 << 18,
 		Watcher = 1 << 19,
+		Account = 1 << 20,
+		LoginCenter=1 << 21,
+		UnitCache=1 << 22,
+		Rank=1 << 23,
+		ChatInfo=1 << 24,
+		Socialize=1 << 25,
 
 		// 客户端
 		Demo = 1 << 30,
