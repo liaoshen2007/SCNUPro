@@ -59,6 +59,10 @@ namespace ET.Server
                     DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
                     var accountInfoList = await dbComponent.Query<AccountInfo>(d => d.Account.Equals(request.AccountName.Trim()));
                     AccountInfo account = null;
+                    StartSceneConfig config = RealmGateAddressHelper.GetGate(session.Zone(), request.AccountName);
+                    Log.Debug($"config address: {config}");
+                    response.Address = config.InnerIPPort.ToString();
+                    
                     if (accountInfoList != null && accountInfoList.Count > 0)
                     {
                         account = accountInfoList[0];
@@ -101,6 +105,42 @@ namespace ET.Server
                         // session.Disconnect().Coroutine();
                         return;
                     }
+                    
+                       //账号中心
+                    StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "LoginCenter");
+                    var l2ALoginAccountResponse=(L2A_LoginAccountResponse)await session.Fiber().Root.GetComponent<MessageSender>().Call(config.ActorId,new A2L_LoginAccountRequest() { AccountId = account.Id});
+                    if (l2ALoginAccountResponse.Error!=ErrorCode.ERR_Success)
+                    {
+                        response.Error = l2ALoginAccountResponse.Error;
+                        // reply();
+                        // session?.Disconnect().Coroutine();
+                        account?.Dispose();
+                        return;
+                    }
+                    
+                    
+                    //顶号下线
+                    long accountSessionInstanceId=session.Root().GetComponent<AccountSessionsComponent>().Get(account.Id);
+                    Session othersession=session.Root().GetChild<Session>(accountSessionInstanceId);
+                    
+                    //此处会空指针？
+                    if (othersession!=null)
+                    {
+                        othersession.Send(new A2C_Disconnect(){Error = 0});
+                        //othersession.Disconnect().Coroutine();
+                    }
+
+                    
+                    session.Root().GetComponent<AccountSessionsComponent>().Add(account.Id,session.InstanceId);
+                    session.AddComponent<AccountCheckOutTimeComponent, long>(account.Id);//检测组件可以按时释放超时的session
+
+                    //todo token最好使用雪花算法！
+                    string Token = TimeInfo.Instance.ServerNow().ToString() + RandomGenerator.RandomNumber(int.MinValue, int.MaxValue);
+                    session.Root().GetComponent<TokenComponent>().Remove(account.Id);
+                    session.Root().GetComponent<TokenComponent>().Add(account.Id,Token);
+
+                    response.AccountId = account.Id;
+                    response.Token = Token;
 
                     await ETTask.CompletedTask;
                 }
