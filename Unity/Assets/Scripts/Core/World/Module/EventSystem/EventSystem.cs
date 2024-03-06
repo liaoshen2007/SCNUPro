@@ -153,6 +153,7 @@ namespace ET
         // publish是事件，抛出去可以没人订阅，调用者跟被调用者属于两个模块，比如任务系统需要知道道具使用的信息，则订阅道具使用事件
         public void Invoke<A>(long type, A args) where A: struct
         {
+            // Log.Error("typeof(A).FullName:"+typeof(A).FullName);
             if (!this.allInvokers.TryGetValue(typeof(A), out var invokeHandlers))
             {
                 throw new Exception($"Invoke error1: {type} {typeof(A).FullName}");

@@ -9,6 +9,7 @@ namespace ET.Server
     {
         protected override async ETTask Run(Session session, C2A_LoginAccount request, A2C_LoginAccount response)
         {
+            Log.Error("session comeHere!");
             if (session.Root().SceneType != SceneType.Account)
             {
                 Log.Error("请求的scene错误，当前的scene为：" + session.Root().SceneType);
@@ -107,7 +108,7 @@ namespace ET.Server
                     }
                     
                        //账号中心
-                    StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "LoginCenter");
+                    //StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "LoginCenter");
                     var l2ALoginAccountResponse=(L2A_LoginAccountResponse)await session.Fiber().Root.GetComponent<MessageSender>().Call(config.ActorId,new A2L_LoginAccountRequest() { AccountId = account.Id});
                     if (l2ALoginAccountResponse.Error!=ErrorCode.ERR_Success)
                     {

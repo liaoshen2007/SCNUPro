@@ -24,14 +24,16 @@ namespace ET.Client
 
             password = MD5Helper.StringMD5(password);
             A2C_LoginAccount a2CLoginAccount;
+            Log.Error("a2CLoginAccount ComeHere!");
             using (Session session=await netComponent.CreateRouterSession(realmAddress,account,password))
             {
                 a2CLoginAccount = (A2C_LoginAccount)await session.Call(new C2A_LoginAccount()
                 {
                     AccountName = account, Password = password
                 });
+                Log.Error("AccountName ComeHere1111!");
             }
-            
+            Log.Error("AccountName ComeHere!");
             if (a2CLoginAccount.Error!=ErrorCode.ERR_Success)
             {
                 response.Error = a2CLoginAccount.Error;

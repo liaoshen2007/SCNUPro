@@ -15,7 +15,7 @@ namespace ET.Server
             root.AddComponent<MessageSender>();
             root.AddComponent<AccountSessionsComponent>();
             root.AddComponent<ServerInfoManagerComponent>();
-            
+            Log.Error("FiberInit_Account!!");
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get(root.Fiber.Id);
             root.AddComponent<NetComponent, IPEndPoint, NetworkProtocol>(startSceneConfig.InnerIPPort, NetworkProtocol.UDP);
             root.AddComponent<DBManagerComponent>();

@@ -20,6 +20,8 @@ namespace ET
         
         public List<StartSceneConfig> Maps = new();
 
+        public StartSceneConfig Account;
+
         public StartSceneConfig Match;
 
         public StartSceneConfig Benchmark;
@@ -68,6 +70,10 @@ namespace ET
                         break;
                     case SceneType.BenchmarkServer:
                         this.Benchmark = startSceneConfig;
+                        break;
+                    case SceneType.Account:
+                        Log.Error("Account startSceneConfig");
+                        this.Account = startSceneConfig;
                         break;
                 }
             }

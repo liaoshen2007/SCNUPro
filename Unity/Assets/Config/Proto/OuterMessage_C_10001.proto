@@ -251,14 +251,14 @@ message R2C_LoginAccount // ISessionResponse
 }
 
 //ResponseType A2C_LoginAccount
-message C2A_LoginAccount // IRequest
+message C2A_LoginAccount // ISessionRequest
 {
 	int32 RpcId = 90;
 	string AccountName = 1;
 	string Password = 2;
 }
 
-message A2C_LoginAccount // IResponse
+message A2C_LoginAccount // ISessionResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

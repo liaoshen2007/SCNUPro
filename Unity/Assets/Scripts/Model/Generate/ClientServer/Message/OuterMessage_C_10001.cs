@@ -1037,7 +1037,7 @@ namespace ET
 	[ResponseType(nameof(A2C_LoginAccount))]
 	[Message(OuterMessage.C2A_LoginAccount)]
 	[MemoryPackable]
-	public partial class C2A_LoginAccount: MessageObject, IRequest
+	public partial class C2A_LoginAccount: MessageObject, ISessionRequest
 	{
 		public static C2A_LoginAccount Create(bool isFromPool = false) 
 		{ 
@@ -1067,7 +1067,7 @@ namespace ET
 
 	[Message(OuterMessage.A2C_LoginAccount)]
 	[MemoryPackable]
-	public partial class A2C_LoginAccount: MessageObject, IResponse
+	public partial class A2C_LoginAccount: MessageObject, ISessionResponse
 	{
 		public static A2C_LoginAccount Create(bool isFromPool = false) 
 		{ 

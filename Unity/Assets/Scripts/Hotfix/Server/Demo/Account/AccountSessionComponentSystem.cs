@@ -2,7 +2,7 @@
 {
     [EntitySystemOf(typeof (AccountSessionsComponent))]
     [FriendOfAttribute(typeof (ET.Server.AccountSessionsComponent))]
-    public static class AccountSessionComponentSystem
+    public static partial class AccountSessionComponentSystem
     {
         public static long Get(this AccountSessionsComponent self, long accountId)
         {

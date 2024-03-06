@@ -2,7 +2,7 @@
 {
     [EntitySystemOf(typeof(TokenComponent))]
     [FriendOfAttribute(typeof(ET.Server.TokenComponent))]
-    public static class TokenComponentSystem
+    public static partial class TokenComponentSystem
     {
         public static void Add(this TokenComponent self, long key, string token)
         {

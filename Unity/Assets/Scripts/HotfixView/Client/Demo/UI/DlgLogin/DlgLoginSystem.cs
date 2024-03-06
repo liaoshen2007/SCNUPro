@@ -31,10 +31,14 @@ namespace ET.Client
 
 		public static void OnLogin(this DlgLogin self)
 		{
-			LoginHelper.Login(
+			LoginHelper.LoginAccount(
 				self.Root(), 
 				self.View.EAccountInputField.text, 
-				self.View.EPasswordInputField.text).Coroutine();
+				self.View.EPasswordInputField.text,ConstValue.RouterHttpHost).Coroutine();
+			// LoginHelper.Login(
+			// 	self.Root(), 
+			// 	self.View.EAccountInputField.text, 
+			// 	self.View.EPasswordInputField.text).Coroutine();
 		}
 		 
 

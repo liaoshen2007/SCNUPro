@@ -17,7 +17,7 @@ namespace ET.Server
                 CloseSession(session).Coroutine();
                 return;
             }
-
+            Log.Error("C2R_Login ComeHere!");
             using (await session.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoginAccount,request.Account.GetLongHashCode()))
             {
                 DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());

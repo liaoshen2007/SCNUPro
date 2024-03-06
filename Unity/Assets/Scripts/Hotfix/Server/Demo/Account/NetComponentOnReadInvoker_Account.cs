@@ -2,15 +2,15 @@
 
 namespace ET.Server
 {
-    [Invoke((long)SceneType.Realm)]
-    public class NetComponentOnReadInvoker_Realm: AInvokeHandler<NetComponentOnRead>
+    [Invoke((long)SceneType.Account)]
+    public class NetComponentOnReadInvoker_Account: AInvokeHandler<NetComponentOnRead>
     {
         public override void Handle(NetComponentOnRead args)
         {
             Session session = args.Session;
             object message = args.Message;
+            Log.Error("Come here?");
             // 根据消息接口判断是不是Actor消息，不同的接口做不同的处理,比如需要转发给Chat Scene，可以做一个IChatMessage接口
-            Log.Error("Come Realm?");
             switch (message)
             {
                 case ISessionMessage:
@@ -26,3 +26,4 @@ namespace ET.Server
         }
     }
 }
+
